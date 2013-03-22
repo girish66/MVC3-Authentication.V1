@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="81b97c4c51bb4e53957c4c728a8b11b8" Name="Diagram1">
+        <EntityTypeShape EntityType="AUTHORIZEV1Model.Module" Width="2.125" PointX="1.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AUTHORIZEV1Model.Permission" Width="2.125" PointX="4.625" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AUTHORIZEV1Model.Role" Width="1.875" PointX="8" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AUTHORIZEV1Model.RoleModulePermission" Width="2.25" PointX="4.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="AUTHORIZEV1Model.User" Width="2.25" PointX="8" PointY="4" IsExpanded="true" />
+        <AssociationConnector Association="AUTHORIZEV1Model.FK_dbo_RoleModulePermission_dbo_Module_ModuleId" ManuallyRouted="false" />
+        <AssociationConnector Association="AUTHORIZEV1Model.FK_dbo_RoleModulePermission_dbo_Permission_PermissionId" ManuallyRouted="false" />
+        <AssociationConnector Association="AUTHORIZEV1Model.FK_dbo_RoleModulePermission_dbo_Role_RoleId" ManuallyRouted="false" />
+        <AssociationConnector Association="AUTHORIZEV1Model.UserRole" ManuallyRouted="false" />
+        <AssociationConnector Association="AUTHORIZEV1Model.ModulePermission" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

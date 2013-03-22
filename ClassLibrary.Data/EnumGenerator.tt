@@ -1,0 +1,93 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ Assembly Name="System.Xml.dll" #>
+<#@ Assembly Name="System.Xml.Linq.dll" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Xml.Linq" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #> 
+<#@ output extension=".cs" #>
+<# string inputConfigurationFileName = string.Format("{0}\\Resources\\{1}", System.IO.Path.GetDirectoryName(this.Host.TemplateFile), "Enums.xml");#>
+// Enums Input file 
+// <#=inputConfigurationFileName#>
+<# parseInputFile(System.IO.File.ReadAllText(inputConfigurationFileName)); #>  
+<#+
+/********************************************************************
+* parses the input XML file and generates namespaces and view models
+********************************************************************/
+void parseInputFile(string Input) 
+{
+	// Output the using statements
+	WriteIncludes();
+	// Load the document
+	System.Xml.Linq.XDocument XmlDoc = System.Xml.Linq.XDocument.Parse(Input);
+	// Process the namespace elements
+	var Namespaces = from c in XmlDoc.Descendants("EnumModelNamespace") select new {Name = c.Attribute("namespace").Value, Models=c.Descendants("EnumModel") };
+	// For each namespaces process the enum models
+    foreach (var ns in Namespaces) 
+	{
+#>
+namespace <#= ns.Name #>
+{
+<#+ 
+		// Select and process the enum models
+		var Models = from vm in ns.Models 
+			select new {
+				Name=vm.Attribute("name").Value, 
+				Inherits=vm.Attribute("inherits"),
+				Properties=vm.Descendants("Property")
+			};
+
+		foreach (var model in Models) 
+		{
+ #>
+	[Flags]
+	public enum <#= model.Name#> <#=model.Inherits == null ?  string.Empty : " : " + model.Inherits.Value #>
+	{
+<#+WriteProperties(model.Properties);#>
+	}
+<#+
+		}
+	}
+#>
+}
+<#+
+ }
+#>
+
+<#+
+/*********************************************************************
+* Generates Properties
+*********************************************************************/
+void WriteProperties(IEnumerable<XElement> properties){
+
+	var propWDefaults = properties.Where(p=>p.Attribute("name") != null);
+
+#>
+<#+
+    foreach (var item in propWDefaults)
+    {
+		var prop= item.Attribute("name").Value;
+		var val = item.Attribute("value").Value;
+#>
+		<#=prop#> = <#=val#>,
+<#+
+    }
+#>
+<#+
+  }
+#>
+
+<#+
+/*********************************************************************
+* Assembly includes
+*********************************************************************/
+void WriteIncludes()
+{#>
+using System;
+<#+}
+#>

@@ -1,0 +1,63 @@
+﻿@using ClassLibrary.Data
+@model ClassLibrary.Data.Dto.UserDto 
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    @Model.Username.ToUpper()
+    @foreach (var role in Model.Roles)
+    {
+        <div style="clear: both; margin-left: 10px;">@role.Name</div>
+        foreach (var module in role.Modules)
+        {
+            <div style="clear: both; margin-left: 20px;">@module.Name</div>
+            foreach (var permission in module.Permissions)
+            {
+                <div style="clear: both; margin-left: 30px;">@permission.Id</div>
+            }
+        }
+    }
+    <div style="clear: both"><br /></div>
+    <div style="clear: both">
+        Your username is? @HttpContext.Current.User.Identity.Name
+    </div>
+    <div style="clear: both">
+        Are you an admin? @HttpContext.Current.User.IsInRole("Admin").ToString()
+    </div>
+    <div style="clear: both">
+        Do you have write AND delete access to program module? @(((AuthorizePrincipal)HttpContext.Current.User).IsInRole(Modules.Program, Permissions.Write | Permissions.Delete, Operators.All).ToString())
+    </div>
+    <div style="clear: both">
+        Do you have approve access to program module? @(((AuthorizePrincipal)HttpContext.Current.User).IsInRole(Modules.Program, Permissions.Approve, Operators.All).ToString())
+    </div>
+    <div style="clear: both">
+        Do you have read OR write OR delete OR approve access to program module? @(((AuthorizePrincipal)HttpContext.Current.User).IsInRole(Modules.Program, Permissions.Read | Permissions.Write | Permissions.Delete, Operators.Or).ToString())
+    </div>
+    <div style="clear: both">
+        Do you have read access to patient module? @(((AuthorizePrincipal)HttpContext.Current.User).IsInRole(Modules.Patient, Permissions.Read, Operators.All).ToString())
+    </div>
+    <div style="clear: both">
+        Do you have read AND write AND delete access to program module? @(((AuthorizePrincipal)HttpContext.Current.User).IsInRole(Modules.Program, Permissions.Read | Permissions.Write | Permissions.Delete, Operators.All).ToString())
+    </div>
+    <div style="clear: both">
+        Do you have read AND activate access to program module? @(((AuthorizePrincipal)HttpContext.Current.User).IsInRole(Modules.Program, Permissions.Read | Permissions.Activate, Operators.All).ToString())
+    </div>
+     <div style="clear: both">
+        Do you have read OR activate access to program module? @(((AuthorizePrincipal)HttpContext.Current.User).IsInRole(Modules.Program, Permissions.Read | Permissions.Activate, Operators.Or).ToString())
+    </div>
+    <div style="clear: both"><br />
+        <a href="@Url.Action("Index","Admin")">Go to admin page</a>
+        &nbsp;
+        <a href="@Url.Action("All","Admin")">Go to all page</a>
+        &nbsp;
+        <a href="@Url.Action("Or","Admin")">Go to or page</a>
+        &nbsp;
+        <a href="@Url.Action("None","Admin")">Go to none page</a>
+        &nbsp;
+        <a href="@Url.Action("Free","Admin")">Go to free page</a>
+         &nbsp;
+        <a href="@Url.Action("Index","Super")">Go to super page</a>
+    </div>
+</div>

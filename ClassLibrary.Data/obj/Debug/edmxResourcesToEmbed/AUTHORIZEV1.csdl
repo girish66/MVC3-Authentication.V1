@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AUTHORIZEV1Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="AUTHORIZEV1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Modules" EntityType="AUTHORIZEV1Model.Module" />
+    <EntitySet Name="Permissions" EntityType="AUTHORIZEV1Model.Permission" />
+    <EntitySet Name="Roles" EntityType="AUTHORIZEV1Model.Role" />
+    <EntitySet Name="RoleModulePermissions" EntityType="AUTHORIZEV1Model.RoleModulePermission" />
+    <EntitySet Name="Users" EntityType="AUTHORIZEV1Model.User" />
+    <AssociationSet Name="FK_dbo_RoleModulePermission_dbo_Module_ModuleId" Association="AUTHORIZEV1Model.FK_dbo_RoleModulePermission_dbo_Module_ModuleId">
+      <End Role="Module" EntitySet="Modules" />
+      <End Role="RoleModulePermission" EntitySet="RoleModulePermissions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_RoleModulePermission_dbo_Permission_PermissionId" Association="AUTHORIZEV1Model.FK_dbo_RoleModulePermission_dbo_Permission_PermissionId">
+      <End Role="Permission" EntitySet="Permissions" />
+      <End Role="RoleModulePermission" EntitySet="RoleModulePermissions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_RoleModulePermission_dbo_Role_RoleId" Association="AUTHORIZEV1Model.FK_dbo_RoleModulePermission_dbo_Role_RoleId">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="RoleModulePermission" EntitySet="RoleModulePermissions" />
+    </AssociationSet>
+    <AssociationSet Name="UserRole" Association="AUTHORIZEV1Model.UserRole">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="ModulePermission" Association="AUTHORIZEV1Model.ModulePermission">
+      <End Role="Module" EntitySet="Modules" />
+      <End Role="Permission" EntitySet="Permissions" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Module">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="256" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="RoleModulePermissions" Relationship="AUTHORIZEV1Model.FK_dbo_RoleModulePermission_dbo_Module_ModuleId" FromRole="Module" ToRole="RoleModulePermission" />
+    <NavigationProperty Name="Permissions" Relationship="AUTHORIZEV1Model.ModulePermission" FromRole="Module" ToRole="Permission" />
+  </EntityType>
+  <EntityType Name="Permission">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="256" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="RoleModulePermissions" Relationship="AUTHORIZEV1Model.FK_dbo_RoleModulePermission_dbo_Permission_PermissionId" FromRole="Permission" ToRole="RoleModulePermission" />
+    <NavigationProperty Name="Modules" Relationship="AUTHORIZEV1Model.ModulePermission" FromRole="Permission" ToRole="Module" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="256" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="RoleModulePermissions" Relationship="AUTHORIZEV1Model.FK_dbo_RoleModulePermission_dbo_Role_RoleId" FromRole="Role" ToRole="RoleModulePermission" />
+    <NavigationProperty Name="Users" Relationship="AUTHORIZEV1Model.UserRole" FromRole="Role" ToRole="User" />
+  </EntityType>
+  <EntityType Name="RoleModulePermission">
+    <Key>
+      <PropertyRef Name="RoleId" />
+      <PropertyRef Name="ModuleId" />
+      <PropertyRef Name="PermissionId" />
+    </Key>
+    <Property Name="RoleId" Type="Int32" Nullable="false" />
+    <Property Name="ModuleId" Type="Int32" Nullable="false" />
+    <Property Name="PermissionId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Module" Relationship="AUTHORIZEV1Model.FK_dbo_RoleModulePermission_dbo_Module_ModuleId" FromRole="RoleModulePermission" ToRole="Module" />
+    <NavigationProperty Name="Permission" Relationship="AUTHORIZEV1Model.FK_dbo_RoleModulePermission_dbo_Permission_PermissionId" FromRole="RoleModulePermission" ToRole="Permission" />
+    <NavigationProperty Name="Role" Relationship="AUTHORIZEV1Model.FK_dbo_RoleModulePermission_dbo_Role_RoleId" FromRole="RoleModulePermission" ToRole="Role" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="256" Unicode="true" FixedLength="false" />
+    <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LastVisit" Type="DateTime" Precision="3" />
+    <Property Name="Locked" Type="Boolean" Nullable="false" />
+    <Property Name="Approved" Type="Boolean" Nullable="false" />
+    <Property Name="LastPasswordFailure" Type="DateTime" Precision="3" />
+    <Property Name="PasswordFailures" Type="Int32" />
+    <Property Name="LastLockout" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Roles" Relationship="AUTHORIZEV1Model.UserRole" FromRole="User" ToRole="Role" />
+  </EntityType>
+  <Association Name="FK_dbo_RoleModulePermission_dbo_Module_ModuleId">
+    <End Role="Module" Type="AUTHORIZEV1Model.Module" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="RoleModulePermission" Type="AUTHORIZEV1Model.RoleModulePermission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Module">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RoleModulePermission">
+        <PropertyRef Name="ModuleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_RoleModulePermission_dbo_Permission_PermissionId">
+    <End Role="Permission" Type="AUTHORIZEV1Model.Permission" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="RoleModulePermission" Type="AUTHORIZEV1Model.RoleModulePermission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Permission">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RoleModulePermission">
+        <PropertyRef Name="PermissionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_RoleModulePermission_dbo_Role_RoleId">
+    <End Role="Role" Type="AUTHORIZEV1Model.Role" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="RoleModulePermission" Type="AUTHORIZEV1Model.RoleModulePermission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RoleModulePermission">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserRole">
+    <End Role="Role" Type="AUTHORIZEV1Model.Role" Multiplicity="*" />
+    <End Role="User" Type="AUTHORIZEV1Model.User" Multiplicity="*" />
+  </Association>
+  <Association Name="ModulePermission">
+    <End Type="AUTHORIZEV1Model.Module" Role="Module" Multiplicity="*" />
+    <End Type="AUTHORIZEV1Model.Permission" Role="Permission" Multiplicity="*" />
+  </Association>
+</Schema>

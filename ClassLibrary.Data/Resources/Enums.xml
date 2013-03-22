@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<EnumModels>
+  <EnumModelNamespace namespace="ClassLibrary.Data">
+    <!-- Operators -->
+    <EnumModel name="Operators" inherits="byte">
+      <Property name="All" value="1"/>
+      <Property name="Or" value="2"/>
+    </EnumModel>
+    <!-- Permissions 1,2,4,8,16,32 because we do | for permission -->
+    <EnumModel name="Permissions">
+      <Property name="Read" value="(1 &lt;&lt; 0)" />
+      <Property name="Write" value="(1 &lt;&lt; 1)"/>
+      <Property name="Delete" value="(1 &lt;&lt; 2)"/>
+      <Property name="Approve" value="(1 &lt;&lt; 3)"/>
+      <Property name="Deny" value="(1 &lt;&lt; 4)"/>
+      <Property name="Activate" value="(1 &lt;&lt; 5)"/>
+    </EnumModel>
+    <!-- Modules -->
+    <EnumModel name="Modules" inherits="byte">
+      <Property name="Program" value="1"/>
+      <Property name="Patient" value="2"/>
+      <Property name="Application" value="3"/>
+    </EnumModel>
+  </EnumModelNamespace>
+</EnumModels> 

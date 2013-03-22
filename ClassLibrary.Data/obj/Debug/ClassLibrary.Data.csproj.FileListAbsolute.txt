@@ -1,0 +1,16 @@
+C:\WRK\Development\DOTNET\VS2010\Test\Authorize.V1\ClassLibrary.Data\bin\Debug\ClassLibrary.Data.dll.config
+C:\WRK\Development\DOTNET\VS2010\Test\Authorize.V1\ClassLibrary.Data\bin\Debug\ClassLibrary.Data.dll
+C:\WRK\Development\DOTNET\VS2010\Test\Authorize.V1\ClassLibrary.Data\bin\Debug\ClassLibrary.Data.pdb
+C:\WRK\Development\DOTNET\VS2010\Test\Authorize.V1\ClassLibrary.Data\bin\Debug\EntityFramework.dll
+C:\WRK\Development\DOTNET\VS2010\Test\Authorize.V1\ClassLibrary.Data\bin\Debug\EntityFramework.xml
+C:\WRK\Development\DOTNET\VS2010\Test\Authorize.V1\ClassLibrary.Data\obj\Debug\ClassLibrary.Data.csprojResolveAssemblyReference.cache
+C:\WRK\Development\DOTNET\VS2010\Test\Authorize.V1\ClassLibrary.Data\obj\Debug\ClassLibrary.Data.dll
+C:\WRK\Development\DOTNET\VS2010\Test\Authorize.V1\ClassLibrary.Data\obj\Debug\ClassLibrary.Data.pdb
+C:\Utils\Dropbox\Dropbox\Misc\Authorize.V1\ClassLibrary.Data\bin\Debug\ClassLibrary.Data.dll.config
+C:\Utils\Dropbox\Dropbox\Misc\Authorize.V1\ClassLibrary.Data\bin\Debug\ClassLibrary.Data.dll
+C:\Utils\Dropbox\Dropbox\Misc\Authorize.V1\ClassLibrary.Data\bin\Debug\ClassLibrary.Data.pdb
+C:\Utils\Dropbox\Dropbox\Misc\Authorize.V1\ClassLibrary.Data\bin\Debug\EntityFramework.dll
+C:\Utils\Dropbox\Dropbox\Misc\Authorize.V1\ClassLibrary.Data\bin\Debug\EntityFramework.xml
+C:\Utils\Dropbox\Dropbox\Misc\Authorize.V1\ClassLibrary.Data\obj\Debug\ClassLibrary.Data.csprojResolveAssemblyReference.cache
+C:\Utils\Dropbox\Dropbox\Misc\Authorize.V1\ClassLibrary.Data\obj\Debug\ClassLibrary.Data.dll
+C:\Utils\Dropbox\Dropbox\Misc\Authorize.V1\ClassLibrary.Data\obj\Debug\ClassLibrary.Data.pdb
